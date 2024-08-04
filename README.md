@@ -3,7 +3,7 @@
 ## General procedure
 ### Step 1: prepare the initial training set
 1. **Solid:** Run NPT simulations using VASP under targe P/T conditions (500, 900, and 1300 GPa; 4000, 5000, 6000, and 7000 K) and calculate the average volumes for each trajectory. The PBEsol functional is used for all my DFT calculations. The core radii of O (2s<sup>2</sup>2p<sup>4</sup>), Si (3s<sup>2</sup>3p<sup>2</sup>), and Mg (2p<sup>6</sup>3s<sup>2</sup>) are 0.820 Å, 1.312 Å, and 1.058 Å, respectively. I choose a simulation time of 5 ps for each ordered/disordered structure. Example input files can be found at `./VASP-example/npt`.
-* **Note**: Mg has **6** valence electrons in the pseudopotential.
+* **Note**: Mg has **8** valence electrons in the pseudopotential.
 2. **Liquid:** Select some solids with different volumes from above simulations. Melt them under NVT ensemble, i.e., liquids have the same volumes as those solids. Run long NVT simulations (I choose 10 ps) for each liquid using VASP at a high temperature (e.g., 15000 K).
 * **Note**: Including the liquid in the training set is not intended for the MLP to simulate the liquid phase, but rather to sample more local environments to improve the MLP's performance in simulating disordered solids. Thus, we keep the volumes of liquids the same as the solids. Additionally, at the recalculation step, the temperatures for liquids are set to 4000-7000 K.
 
