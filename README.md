@@ -10,7 +10,7 @@
 1. Convergence test for PCA analysis:
    1. Try different numbers of frames (e.g., 50, 100, 200, etc) to do PCA analyses for some trajectories in Step 1. 
    2. Train preliminary models using different numbers of PCA frames (without recalculation at this stage). 
-   3. Run several short AIMD simulations with different initial velocities (by changing the random seed) to generate a test set. 
+   3. Run several short MD simulations using VASP with different initial velocities (by changing the random seed) to generate a test set. 
    4. Plot the test error as a function of the number of PCA frames, and determine how many frames are needed to achieve the desired test error.
 2. Convergence test for KPOINTS and ENCUT:
    1. Plot TOTEN as a function of the KPOINTS and ENCUT to determine the appropriate setup for high-accuracy recalculations.
