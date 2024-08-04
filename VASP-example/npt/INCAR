@@ -1,0 +1,31 @@
+Global Parameters
+
+  ISTART =  0
+  LREAL  = Auto       (Real-space projection)
+  LWAVE  = .F.        (Write WAVECAR or not)
+  LCHARG = .F.        (Write CHGCAR or not)
+
+Electronic Relaxation
+  ENCUT  =  500          (Cut-off energy for plane wave basis set, in eV)
+  ISMEAR =  -1           (Gaussian smearing; metals:1)
+  SIGMA  =  0.4309       (Smearing value in eV; metals:0.2)
+  NELM   =  60           (Max electronic SCF steps)
+  EDIFF  =  1E-04        (SCF energy convergence; in eV)
+  GGA  =  PS           (PBEsol exchange-correlation)
+
+Ionic Relaxation
+
+  NSW    =  5000        (Max ionic steps)
+  IBRION =  0            (Algorithm: 0-MD; 1-Quasi-New; 2-CG)
+  MDALGO =  3
+  ISIF   =  3
+  ISYM   =  0
+  POTIM  = 1.000       time-step for ion-motion
+  TEBEG  = 5000
+  TEEND  = 5000
+  LANGEVIN_GAMMA = 10.0 10.0 10.0  # Langevin friction coefficient for three atomic species
+  LANGEVIN_GAMMA_L = 10.0          # Langevin friction coefficient for lattice degrees of freedom
+  PMASS = 1000
+  PSTRESS =  13000
+  NPACO  =   104
+  APACO  =   10.4

@@ -1,9 +1,9 @@
-# Train an MLP for Mg<sub>2</sub>SiO<sub>4</sub> using DeePMD-kit
+# Train an MLP for Mg<sub>2</sub>SiO<sub>4</sub> under super-Earth mantle conditions
 
 ## General procedure
 ### Step 1: prepare the initial training set
-1. **Solid:** Run NPT simulations using VASP under targe P/T conditions (500, 900, and 1300 GPa; 4000, 5000, 6000, and 7000 K). I choose a simulation time of 5000 fs for each ordered/disordered structure. Calculate the average volumes for each trajectory.
-2. **Liquid:** Select some solids with different volumes from above simulations. Melt them under NVT ensemble, i.e., liquids have the same volumes as those solids. Run long NVT simulations (I choose 10 ps) for each liquid using VASP at a high temperature.
+1. **Solid:** Run NPT simulations using VASP under targe P/T conditions (500, 900, and 1300 GPa; 4000, 5000, 6000, and 7000 K) and calculate the average volumes for each trajectory. The PBEsol functional is used for all my DFT calculations. I choose a simulation time of 5 ps for each ordered/disordered structure. Example input files can be found at `./VASP-example/npt`.
+2. **Liquid:** Select some solids with different volumes from above simulations. Melt them under NVT ensemble, i.e., liquids have the same volumes as those solids. Run long NVT simulations (I choose 10 ps) for each liquid using VASP at a high temperature (e.g., 15000 K).
 * **Note**: Including the liquid in the training set is not intended for the MLP to simulate the liquid phase, but rather to sample more local environments to improve the MLP's performance in simulating disordered solids. Thus, we keep the volumes of liquids the same as the solids. Additionally, at the recalculation step, the temperatures for liquids are set to 4000-7000 K.
 
 ### Step 2: Convergence test
@@ -17,11 +17,12 @@
    
 ### Step 3: Recalculation
 1. Do PCA analyses for all trajectories in Step 1. Construct a training set using these frames. Random select some frames that are not selected by PCA to construct a test set.
-2. Do high-accuracy DFT recalculations for both training and test sets.
-3. Use the recalculated training set (set.000) and test set (set.001) to train a preliminary MLP.
+2. Do high-accuracy DFT recalculations for both training and test sets. Example input files can be found at `./VASP-example/recalculation`.
+3. Use the recalculated training set (set.000) and test set (set.001) to train the first MLP.
+* **Note:** Remember to increase NBANDS to make sure the highest energy band is completely empty. The default NBANDS is usually too small for super-Earth mantle conditions.
 
 ### Step 4: Iterative training
-1. Run NPT simulations for various disordered structures that are not included in Step 1 using LAMMPS and the preliminary MLP.
+1. Run NPT simulations for various disordered structures that are not included in Step 1 using LAMMPS and the MLP.
 2. Do PCA analyses and high-accuracy DFT recalculation.
 3. Calculate the test error (energy, force, and stress RMSE) for each structure. For a structure with high RMSEs, add all recalculated frames of it into the training set. For a structure with acceptable RMSEs, add all recalculated frames of it into the test set.
 4. Train an updated MLP with the new training and test sets and repeat Step 4.

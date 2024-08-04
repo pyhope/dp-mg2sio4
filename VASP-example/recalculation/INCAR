@@ -1,0 +1,27 @@
+Global Parameters
+
+  ISTART =  0
+  LREAL  = Auto       (Real-space projection)
+  LWAVE  = .F.        (Write WAVECAR or not)
+  LCHARG = .F.        (Write CHGCAR or not)
+
+Electronic Relaxation
+  ENCUT  =  800          (Cut-off energy for plane wave basis set, in eV)
+  ISMEAR =  -1           (Gaussian smearing; metals:1)
+  SIGMA  =  0.4309       (Smearing value in eV; metals:0.2)
+  NELM   =  60           (Max electronic SCF steps)
+  EDIFF  =  1E-06        (SCF energy convergence; in eV)
+  GGA  =  PS           (PBEsol exchange-correlation)
+  NBANDS =  1008       (Number of bands)
+
+Ionic Relaxation
+  NSW    =  0            (Max ionic steps)
+  IBRION =  0            (Algorithm: 0-MD; 1-Quasi-New; 2-CG)
+  ISIF   =  2
+  ISYM   =  0
+  POTIM  = 1.000       time-step for ion-motion
+  TEBEG  = 5000
+  TEEND  = 5000
+  SMASS  =   0.00      Nose mass-parameter (am)
+  NPACO  =   104
+  APACO  =   10.4
